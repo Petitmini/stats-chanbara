@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // NAVIGATION EN PAGE COMPLÈTE
     let currentSectionIndex = 0;
     const sections = document.querySelectorAll('#fullpage-wrapper section');
     const totalSections = sections.length;
     const wrapper = document.getElementById('fullpage-wrapper');
     let isScrolling = false;
-    
+
     // NAVIGATION AVEC MENU LATÉRAL
     const menuItems = document.querySelectorAll('#sidebar-menu li');
 
-    // Fonction pour mettre à jour la classe "active" du menu
     function updateMenuActive(index) {
         menuItems.forEach((item, i) => {
             if (i === index) {
@@ -21,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fonction pour aller à une section spécifique
     function goToSection(index) {
         if (index >= 0 && index < totalSections) {
             currentSectionIndex = index;
@@ -31,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Gérer l'événement de défilement de la souris
     window.addEventListener('wheel', (e) => {
         if (isScrolling) return;
         isScrolling = true;
@@ -47,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
     });
 
-    // Gérer les clics sur le menu latéral
     menuItems.forEach(item => {
         item.addEventListener('click', function() {
             const sectionIndex = parseInt(this.getAttribute('data-section'));
@@ -55,9 +51,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Initialisation
     goToSection(0);
-    
+
     // FIN NAVIGATION EN PAGE COMPLÈTE
 
     const dataUrl = 'assets/data/progression.csv';
@@ -66,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         labels: ['Explosivite', 'Technicite', 'Strategie', 'Endurance', 'Vitesse'],
         values: []
     };
-    
+
     let progressionData = {
         labels: [],
         datasets: [{
@@ -143,18 +138,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
-    
+
     async function fetchData() {
         try {
             const response = await fetch(dataUrl);
             const text = await response.text();
-            
-            const rows = text.split('\n').filter(row => row.trim() !== '').slice(1);
-            
-            const lastRow = rows[rows.length - 1];
-            const latestValues = lastRow.split(',').slice(1).map(Number);
-            statsData.values = latestValues;
 
+            const rows = text.split('\n').filter(row => row.trim() !== '').slice(1);
+
+            const lastRow = rows[rows.length - 1];
+            const [date, ...values] = lastRow.split(',');
+            const latestValues = values.map(Number);
+
+            statsData.values = latestValues;
+            
             statsChart.data.datasets[0].data = statsData.values;
             statsChart.update();
 
@@ -167,9 +164,44 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             progressionChart.update();
 
+            // Mise à jour de la ceinture avec un score calculé
+            updateCeinture();
+
         } catch (error) {
             console.error('Erreur lors de la récupération des données:', error);
         }
+    }
+
+    // Fonctions de gestion de la ceinture (VERSION AUTOMATIQUE)
+    function getAverageScore() {
+        if (statsData.values.length === 0) return 0;
+        const total = statsData.values.reduce((sum, value) => sum + value, 0);
+        return total / statsData.values.length;
+    }
+
+    function getCeintureColor(score) {
+        if (score >= 90) {
+            return 'ceinture-noire';
+        } else if (score >= 80) {
+            return 'ceinture-marron';
+        } else if (score >= 70) {
+            return 'ceinture-bleue';
+        } else if (score >= 60) {
+            return 'ceinture-verte';
+        } else if (score >= 50) {
+            return 'ceinture-orange';
+        } else if (score >= 40) {
+            return 'ceinture-jaune';
+        } else {
+            return 'ceinture-blanche';
+        }
+    }
+
+    function updateCeinture() {
+        const score = getAverageScore();
+        const ceintureClass = getCeintureColor(score);
+        const ceintureElement = document.getElementById('ceinture-couleur');
+        ceintureElement.className = ceintureClass;
     }
 
     const notesArea = document.getElementById('notes-area');
@@ -184,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (localStorage.getItem(notesKey)) {
         notesArea.value = localStorage.getItem(notesKey);
     }
-    
+
     const ctxStats = document.getElementById('stats-chart').getContext('2d');
     const statsChart = new Chart(ctxStats, statsConfig);
     const ctxProgression = document.getElementById('progression-chart').getContext('2d');

@@ -176,9 +176,9 @@ h2 {
 }
 
 #avatar-container {
-    padding: 10px;
-    border: 2px solid #FFFFFF;
-    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #avatar {
@@ -268,4 +268,51 @@ footer {
         width: 300px;
         height: 300px;
     }
+}
+
+/* Styles pour le conteneur de l'avatar et de la ceinture */
+#avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles pour la ceinture */
+#ceinture-couleur {
+    width: 150px;
+    height: 15px;
+    margin-top: 15px;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.5s ease-in-out;
+}
+
+/* Couleurs des ceintures */
+.ceinture-blanche {
+    background-color: #ffffff;
+}
+
+.ceinture-jaune {
+    background-color: #fce703;
+}
+
+.ceinture-orange {
+    background-color: #f7931a;
+}
+
+.ceinture-verte {
+    background-color: #008000;
+}
+
+.ceinture-bleue {
+    background-color: #0000ff;
+}
+
+.ceinture-marron {
+    background-color: #964B00;
+}
+
+.ceinture-noire {
+    background-color: #242424;
 }
