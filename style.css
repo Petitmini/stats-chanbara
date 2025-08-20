@@ -43,7 +43,6 @@ html {
     position: fixed;
     top: 50%;
     right: 30px;
-    /* Positionné à droite */
     transform: translateY(-50%);
     z-index: 1001;
 }
@@ -58,6 +57,8 @@ html {
 }
 
 #sidebar-menu li {
+    position: relative;
+    /* Important pour le positionnement du span */
     width: 15px;
     height: 15px;
     background-color: rgba(255, 255, 255, 0.4);
@@ -67,11 +68,38 @@ html {
     transition: all 0.3s ease;
 }
 
-#sidebar-menu li:hover {
-    background-color: #E04040;
-    transform: scale(1.2);
+/* Styles pour le nom de la section (le span) */
+#sidebar-menu li span {
+    position: absolute;
+    right: 30px;
+    /* Positionnement à droite du cercle */
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    /* Empêche le texte de passer à la ligne */
+    background-color: #242424;
+    border: 1px solid #E04040;
+    padding: 5px 10px;
+    border-radius: 5px;
+    opacity: 0;
+    /* Masqué par défaut */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+/* Effets de survol (hover) */
+#sidebar-menu li:hover {
+    transform: scale(1.2);
+    /* Agrandissement du cercle au survol */
+}
+
+#sidebar-menu li:hover span {
+    opacity: 1;
+    /* Apparition du texte au survol */
+    visibility: visible;
+}
+
+/* Style de l'élément actif */
 #sidebar-menu li.active {
     background-color: #E04040;
     transform: scale(1.4);
