@@ -1,4 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // NAVIGATION EN PAGE COMPLÈTE
+    let currentSectionIndex = 0;
+    const sections = document.querySelectorAll('#fullpage-wrapper section');
+    const totalSections = sections.length;
+    const wrapper = document.getElementById('fullpage-wrapper');
+    let isScrolling = false;
+    
+    // NAVIGATION AVEC MENU LATÉRAL
+    const menuItems = document.querySelectorAll('#sidebar-menu li');
+
+    // Fonction pour mettre à jour la classe "active" du menu
+    function updateMenuActive(index) {
+        menuItems.forEach((item, i) => {
+            if (i === index) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // Fonction pour aller à une section spécifique
+    function goToSection(index) {
+        if (index >= 0 && index < totalSections) {
+            currentSectionIndex = index;
+            const translateY = -currentSectionIndex * 100;
+            wrapper.style.transform = `translateY(${translateY}vh)`;
+            updateMenuActive(currentSectionIndex);
+        }
+    }
+
+    // Gérer l'événement de défilement de la souris
+    window.addEventListener('wheel', (e) => {
+        if (isScrolling) return;
+        isScrolling = true;
+
+        if (e.deltaY > 0) {
+            goToSection(currentSectionIndex + 1);
+        } else {
+            goToSection(currentSectionIndex - 1);
+        }
+
+        setTimeout(() => {
+            isScrolling = false;
+        }, 1000);
+    });
+
+    // Gérer les clics sur le menu latéral
+    menuItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const sectionIndex = parseInt(this.getAttribute('data-section'));
+            goToSection(sectionIndex);
+        });
+    });
+
+    // Initialisation
+    goToSection(0);
+    
+    // FIN NAVIGATION EN PAGE COMPLÈTE
 
     const dataUrl = 'assets/data/progression.csv';
 
@@ -17,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }]
     };
 
-    // Configuration des graphiques
     const statsConfig = {
         type: 'radar',
         data: {
@@ -33,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 pointHoverBackgroundColor: '#E04040'
             }, {
                 label: 'Max',
-                data: [100, 100, 100, 100, 100], // Maximum atteignable
-                backgroundColor: 'rgba(255, 255, 255, 0.1)', // Rendu plus transparent
+                data: [100, 100, 100, 100, 100],
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 borderColor: 'rgba(255, 255, 255, 0.2)',
                 borderWidth: 1,
             }]
@@ -43,16 +102,16 @@ document.addEventListener('DOMContentLoaded', function() {
             maintainAspectRatio: false,
             scales: {
                 r: {
-                    angleLines: { color: 'rgba(255, 255, 255, 0.3)' }, // Rendu plus visible
-                    grid: { color: 'rgba(255, 255, 255, 0.3)' }, // Rendu plus visible
+                    angleLines: { color: 'rgba(255, 255, 255, 0.3)' },
+                    grid: { color: 'rgba(255, 255, 255, 0.3)' },
                     pointLabels: {
-                        color: '#FFFFFF', // Couleur du texte en blanc
+                        color: '#FFFFFF',
                         font: {
-                            size: 14, // Augmentation de la taille de la police
-                            weight: 'bold' // Mettre le texte en gras pour une meilleure lisibilité
+                            size: 14,
+                            weight: 'bold'
                         },
-                        backdropColor: 'rgba(0, 0, 0, 0.4)', // Ajout d'un fond derrière le texte pour le faire ressortir
-                        backdropPadding: 4 // Espace autour du texte
+                        backdropColor: 'rgba(0, 0, 0, 0.4)',
+                        backdropPadding: 4
                     },
                     ticks: { display: false, beginAtZero: true }
                 }
@@ -129,13 +188,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctxStats = document.getElementById('stats-chart').getContext('2d');
     const statsChart = new Chart(ctxStats, statsConfig);
     const ctxProgression = document.getElementById('progression-chart').getContext('2d');
+    const progressionChart = new Chart(ctxProgression, progressionConfig);
+
+    fetchData();
 
     // Gestion des cases à cocher pour les prérequis
     const prerequisList = document.getElementById('prerequis-list');
     const prerequisCheckboxes = prerequisList.querySelectorAll('input[type="checkbox"]');
     const prerequisKey = 'chanbara_prerequis';
 
-    // Chargement de l'état des cases à cocher
     if (localStorage.getItem(prerequisKey)) {
         const savedStates = JSON.parse(localStorage.getItem(prerequisKey));
         prerequisCheckboxes.forEach((checkbox, index) => {
@@ -143,11 +204,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Sauvegarde de l'état des cases à cocher à chaque changement
     prerequisCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             const currentStates = Array.from(prerequisCheckboxes).map(cb => cb.checked);
             localStorage.setItem(prerequisKey, JSON.stringify(currentStates));
         });
     });
-})
+
+});

@@ -10,41 +10,60 @@
 
 <body>
 
-    <header>
+    <nav id="sidebar-menu">
+        <ul>
+            <li data-section="0" class="active"></li>
+            <li data-section="1"></li>
+            <li data-section="2"></li>
+            <li data-section="3"></li>
+        </ul>
+    </nav>
+
+    <header id="main-header">
         <h1>Mon Suivi Chanbara</h1>
     </header>
 
-    <main>
+    <div id="fullpage-wrapper">
         <section id="profil">
-            <div id="avatar-container">
-                <img id="avatar" src="assets/images/avatar-placeholder.png" alt="Mon Avatar">
-            </div>
-            <div id="stats-container">
-                <h2>Statistiques</h2>
-                <canvas id="stats-chart"></canvas>
+            <div class="section-content">
+                <div id="profil-content-wrapper">
+                    <div id="avatar-container">
+                        <img id="avatar" src="assets/images/avatar-placeholder.png" alt="Mon Avatar">
+                    </div>
+                    <div id="stats-container">
+                        <h2>Statistiques</h2>
+                        <canvas id="stats-chart"></canvas>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="progression">
-            <h2>Progression Annuelle</h2>
-            <canvas id="progression-chart"></canvas>
+            <div class="section-content">
+                <h2>Progression Annuelle</h2>
+                <canvas id="progression-chart"></canvas>
+            </div>
         </section>
 
         <section id="commentaires">
-            <h2>Notes & Objectifs</h2>
-            <textarea id="notes-area" rows="5" placeholder="Écrivez vos notes ici..."></textarea>
-            <button id="save-notes-btn">Sauvegarder</button>
+            <div class="section-content">
+                <h2>Notes & Objectifs</h2>
+                <textarea id="notes-area" rows="5" placeholder="Écrivez vos notes ici..."></textarea>
+                <button id="save-notes-btn">Sauvegarder</button>
+            </div>
         </section>
 
         <section id="ceintures">
-            <h2>Ceinture Supérieure</h2>
-            <ul id="prerequis-list">
-                <li><input type="checkbox" id="prereq-1"> <label for="prereq-1">Prérequis 1</label></li>
-                <li><input type="checkbox" id="prereq-2"> <label for="prereq-2">Prérequis 2</label></li>
-                <li><input type="checkbox" id="prereq-3"> <label for="prereq-3">Prérequis 3</label></li>
-            </ul>
+            <div class="section-content">
+                <h2>Ceinture Supérieure</h2>
+                <ul id="prerequis-list">
+                    <li><input type="checkbox" id="prereq-1"> <label for="prereq-1">Prérequis 1</label></li>
+                    <li><input type="checkbox" id="prereq-2"> <label for="prereq-2">Prérequis 2</label></li>
+                    <li><input type="checkbox" id="prereq-3"> <label for="prereq-3">Prérequis 3</label></li>
+                </ul>
+            </div>
         </section>
-    </main>
+    </div>
 
     <footer>
         <p>© 2025 Mon Projet Chanbara</p>

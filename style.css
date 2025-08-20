@@ -1,51 +1,145 @@
 /* Importation d'une police de caractère style 'jeu vidéo' */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* Styles généraux pour le corps de la page */
-body {
+/* Styles pour que chaque section prenne toute la hauteur */
+body,
+html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    /* Cacher la barre de défilement par défaut */
     font-family: 'Press Start 2P', cursive;
     background-color: #1A1A1A;
-    /* Fond noir */
     color: #FFFFFF;
-    /* Texte en blanc */
+}
+
+#main-header {
+    position: fixed;
+    /* Position fixe par rapport à la fenêtre de visualisation */
+    top: 20px;
+    /* 20 pixels du haut de l'écran */
+    left: 50%;
+    /* Centré horizontalement */
+    transform: translateX(-50%);
+    /* Décalage pour un centrage parfait */
+    text-align: center;
+    z-index: 1000;
+    /* S'assurer qu'il est au-dessus des autres éléments */
+    background-color: transparent;
+    padding: 10px 20px;
+    pointer-events: none;
+    /* Permet de cliquer à travers le titre */
+}
+
+#fullpage-wrapper {
+    height: 100%;
+    position: relative;
+    transition: transform 0.7s cubic-bezier(0.55, 0, 0.1, 1);
+    /* Animation de transition fluide */
+}
+
+/* Styles pour le menu latéral */
+#sidebar-menu {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    /* Positionné à droite */
+    transform: translateY(-50%);
+    z-index: 1001;
+}
+
+#sidebar-menu ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    gap: 15px;
 }
 
-h1 {
-    color: #E04040;
-    /* Titre en rouge vif */
-    text-shadow: 2px 2px 4px #000;
+#sidebar-menu li {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 2px solid #E04040;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Contenu principal et sections */
+#sidebar-menu li:hover {
+    background-color: #E04040;
+    transform: scale(1.2);
+}
+
+#sidebar-menu li.active {
+    background-color: #E04040;
+    transform: scale(1.4);
+}
+
 main {
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    flex-wrap: wrap;
-    /* Permet aux éléments de passer à la ligne */
-    justify-content: space-between;
-    gap: 20px;
+    height: 100%;
+    display: block;
+    /* S'assurer que le main n'est pas flex ou grid */
+    padding: 0;
 }
 
+/* Styles des sections */
 section {
+    height: 100vh;
+    /* 100% de la hauteur de la vue du navigateur */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1A1A1A;
+    /* Rendre le fond de section invisible */
+    border: none;
+    box-shadow: none;
+}
+
+/* Nouveau style pour les conteneurs de contenu (les "blocs") */
+.section-content {
     background-color: #242424;
-    /* Fond de section en gris foncé */
+    /* Couleur de fond des boîtes de section */
     border: 2px solid #E04040;
     /* Bordure en rouge vif */
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 15px rgba(224, 64, 64, 0.5);
     /* Effet de lueur rouge */
+    max-width: 800px;
+    /* Limiter la largeur des blocs */
+    width: 90%;
+    box-sizing: border-box;
+    /* Inclure le padding et la bordure dans la taille */
 }
 
-/* Section Profil (Avatar et stats) */
-#profil {
+/* Styles des titres */
+h1 {
+    color: #E04040;
+    /* Titre en rouge vif */
+    text-shadow: 2px 2px 4px #000;
+}
+
+h2 {
+    color: #E04040;
+    /* Titre des sections en rouge vif */
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Style de la section profil */
+#profil .section-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    /* Ajout d'espace en haut */
+}
+
+#profil-content-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -56,7 +150,6 @@ section {
 #avatar-container {
     padding: 10px;
     border: 2px solid #FFFFFF;
-    /* Bordure blanche pour l'avatar */
     border-radius: 50%;
 }
 
@@ -67,43 +160,28 @@ section {
     object-fit: cover;
 }
 
-/* Augmentation de la taille du graphique de stats */
+/* Taille des graphiques */
 #stats-container {
     width: 400px;
-    /* Augmentation de la largeur */
     height: 400px;
-    /* Augmentation de la hauteur */
 }
 
-/* Augmentation de la taille du graphique de progression */
-#progression {
-    width: 100%;
-    height: 400px;
-    text-align: center;
+#progression .section-content {
+    height: 500px;
+    /* Taille du bloc de progression */
 }
 
-/* Sections des graphiques et autres */
-#commentaires,
-#ceintures {
-    width: calc(50% - 10px);
-    /* Pour les afficher côte à côte */
-    text-align: center;
+#progression-chart {
+    height: 100%;
 }
 
-h2 {
-    color: #E04040;
-    /* Titre des sections en rouge vif */
-    margin-bottom: 15px;
-}
 
 /* Zone de texte pour les commentaires */
 textarea {
     width: 95%;
     background-color: #1A1A1A;
-    /* Fond de la zone de texte en noir */
     color: #FFFFFF;
     border: 2px solid #E04040;
-    /* Bordure en rouge vif */
     padding: 10px;
     font-family: inherit;
 }
@@ -128,9 +206,7 @@ textarea {
 /* Bouton de sauvegarde */
 #save-notes-btn {
     background-color: #E04040;
-    /* Fond du bouton en rouge vif */
     color: #FFFFFF;
-    /* Texte du bouton en blanc */
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -141,12 +217,27 @@ textarea {
 
 #save-notes-btn:hover {
     background-color: #B02424;
-    /* Couleur de survol en rouge foncé */
 }
 
 /* Pied de page */
 footer {
     text-align: center;
-    margin-top: auto;
+    margin-top: 20px;
     padding-top: 20px;
+}
+
+/* Styles pour les petits écrans */
+@media (max-width: 768px) {
+    #profil .section-content {
+        flex-direction: column;
+    }
+
+    #profil-content-wrapper {
+        flex-direction: column;
+    }
+
+    #stats-container {
+        width: 300px;
+        height: 300px;
+    }
 }
