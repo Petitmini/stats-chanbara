@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Suivi Chanbara</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Mon Suivi Chanbara</h1>
+    </header>
+
+    <main>
+        <section id="profil">
+            <div id="avatar-container">
+                <img id="avatar" src="assets/images/avatar-placeholder.png" alt="Mon Avatar">
+            </div>
+            <div id="stats-container">
+                <h2>Statistiques</h2>
+                <canvas id="stats-chart"></canvas>
+            </div>
+        </section>
+
+        <section id="progression">
+            <h2>Progression Annuelle</h2>
+            <canvas id="progression-chart"></canvas>
+        </section>
+
+        <section id="commentaires">
+            <h2>Notes & Objectifs</h2>
+            <textarea id="notes-area" rows="5" placeholder="Écrivez vos notes ici..."></textarea>
+            <button id="save-notes-btn">Sauvegarder</button>
+        </section>
+
+        <section id="ceintures">
+            <h2>Ceinture Supérieure</h2>
+            <ul id="prerequis-list">
+                <li><input type="checkbox" id="prereq-1"> <label for="prereq-1">Prérequis 1</label></li>
+                <li><input type="checkbox" id="prereq-2"> <label for="prereq-2">Prérequis 2</label></li>
+                <li><input type="checkbox" id="prereq-3"> <label for="prereq-3">Prérequis 3</label></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Mon Projet Chanbara</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+
+</html>

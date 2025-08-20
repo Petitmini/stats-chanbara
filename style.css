@@ -1,0 +1,152 @@
+/* Importation d'une police de caractère style 'jeu vidéo' */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Styles généraux pour le corps de la page */
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #1A1A1A;
+    /* Fond noir */
+    color: #FFFFFF;
+    /* Texte en blanc */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    color: #E04040;
+    /* Titre en rouge vif */
+    text-shadow: 2px 2px 4px #000;
+}
+
+/* Contenu principal et sections */
+main {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    /* Permet aux éléments de passer à la ligne */
+    justify-content: space-between;
+    gap: 20px;
+}
+
+section {
+    background-color: #242424;
+    /* Fond de section en gris foncé */
+    border: 2px solid #E04040;
+    /* Bordure en rouge vif */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(224, 64, 64, 0.5);
+    /* Effet de lueur rouge */
+}
+
+/* Section Profil (Avatar et stats) */
+#profil {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+#avatar-container {
+    padding: 10px;
+    border: 2px solid #FFFFFF;
+    /* Bordure blanche pour l'avatar */
+    border-radius: 50%;
+}
+
+#avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Augmentation de la taille du graphique de stats */
+#stats-container {
+    width: 400px;
+    /* Augmentation de la largeur */
+    height: 400px;
+    /* Augmentation de la hauteur */
+}
+
+/* Augmentation de la taille du graphique de progression */
+#progression {
+    width: 100%;
+    height: 400px;
+    text-align: center;
+}
+
+/* Sections des graphiques et autres */
+#commentaires,
+#ceintures {
+    width: calc(50% - 10px);
+    /* Pour les afficher côte à côte */
+    text-align: center;
+}
+
+h2 {
+    color: #E04040;
+    /* Titre des sections en rouge vif */
+    margin-bottom: 15px;
+}
+
+/* Zone de texte pour les commentaires */
+textarea {
+    width: 95%;
+    background-color: #1A1A1A;
+    /* Fond de la zone de texte en noir */
+    color: #FFFFFF;
+    border: 2px solid #E04040;
+    /* Bordure en rouge vif */
+    padding: 10px;
+    font-family: inherit;
+}
+
+/* Cases à cocher des prérequis */
+#prerequis-list {
+    list-style: none;
+    padding: 0;
+}
+
+#prerequis-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#prerequis-list input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Bouton de sauvegarde */
+#save-notes-btn {
+    background-color: #E04040;
+    /* Fond du bouton en rouge vif */
+    color: #FFFFFF;
+    /* Texte du bouton en blanc */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', cursive;
+    margin-top: 10px;
+}
+
+#save-notes-btn:hover {
+    background-color: #B02424;
+    /* Couleur de survol en rouge foncé */
+}
+
+/* Pied de page */
+footer {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 20px;
+}
